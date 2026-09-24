@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meu dinheiro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/componentes.css">
+</head>
+<body>
+
+<div class="wrap">
+
+    <!-- ============================================================
+         CABEÇALHO
+         ============================================================ -->
+    <header class="topo">
+        <div class="marca">
+            <span class="moeda">R$</span> Meu dinheiro
+        </div>
+
+        <button class="icone-btn" id="botaoTema" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <!-- ============================================================
+         RESULTADO DO MÊS — vem direto da planilha
+         ============================================================ -->
+    <section class="fluxo">
+        <div>
+            <div class="saldo-rotulo" id="saldoRotulo">Sobra do mês</div>
+            <div class="saldo num" id="saldoValor">R$ 0,00</div>
+        </div>
+        <div class="fluxo-dir">
+            <div>
+                <div class="v ent num" id="totalEntradas">R$ 0,00</div>
+                <div class="k">entrou</div>
+            </div>
+            <div>
+                <div class="v sai num" id="totalSaidas">R$ 0,00</div>
+                <div class="k">saiu</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="barra-zona">
+        <div class="barra">
+            <i class="gasto" id="barraGasto"></i>
+            <i class="sobra" id="barraSobra"></i>
+        </div>
+        <div class="barra-leg">
+            <span id="legendaEsquerda">Preencha a planilha abaixo</span>
+            <span id="legendaDireita"></span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         NAVEGAÇÃO ENTRE TELAS
+         ============================================================ -->
+    <nav class="abas" role="tablist">
+        <button class="aba" role="tab" data-tela="planilha" aria-selected="true">Planilha</button>
+        <button class="aba" role="tab" data-tela="cartoes" aria-selected="false">Cartão e parcelas</button>
+        <button class="aba" role="tab" data-tela="planejar" aria-selected="false">Planejar</button>
+    </nav>
+
+    <!-- ============================================================
+         TELA 1 — PLANILHA (a principal)
+         ============================================================ -->
+    <div class="tela" id="tela-planilha">
+        <div class="colunas">
+
+            <div>
+                <div class="barra-planilha">
+                    <div class="periodo">
+                        <span class="periodo-rot">Ano</span>
+                        <div class="mes">
+                            <button id="anoAnterior" aria-label="Ano anterior">&lsaquo;</button>
+                            <button class="rotulo num" id="rotuloAnoPlanilha"></button>
+                            <button id="anoSeguinte" aria-label="Próximo ano">&rsaquo;</button>
+                        </div>
+                    </div>
+
+                    <div class="periodo">
+                        <span class="periodo-rot">Mês</span>
+                        <div class="mes">
+                            <button id="mesAnterior" aria-label="Mês anterior">&lsaquo;</button>
+                            <button class="rotulo" id="rotuloMes" title="Voltar para o mês atual"></button>
+                            <button id="mesSeguinte" aria-label="Próximo mês">&rsaquo;</button>
+                        </div>
+                    </div>
+
+                    <button class="mini" id="botaoNovaPlanilha">+ Nova planilha</button>
+                </div>
+
+                <div id="listaGrades"></div>
+
+                <p class="dica" style="margin-top:14px">
+                    Uma grade para cada pagamento do mês, com o ano inteiro à vista — role a
+                    página, não a planilha. A coluna do mês escolhido acima fica destacada, e
+                    <b>Enter</b> pula para a linha de baixo.
+                </p>
+            </div>
+
+            <div>
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Resumo do mês</h2></div>
+                    <div id="resumoPorPlanilha"></div>
+                </section>
+
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Sobra dos últimos meses</h2></div>
+                    <div class="meses" id="graficoMeses"></div>
+                </section>
+
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Meta</h2></div>
+                    <div class="meta-box">
+                        <span class="rot">Quero guardar por mês</span>
+                        <input class="campo-num num" id="campoMeta" inputmode="decimal" aria-label="Meta mensal de sobra">
+                    </div>
+                    <div class="meta-box sem-topo">
+                        <span class="rot" id="textoMeta"></span>
+                    </div>
+                </section>
+
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Anotações</h2></div>
+                    <form class="form-anotacao" id="formAnotacao">
+                        <input id="campoAnotacao" type="text" placeholder="Escreva uma anotação" aria-label="Nova anotação">
+                        <button class="mini" type="submit">+ Nota</button>
+                    </form>
+                    <div id="listaAnotacoes"></div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================
+         TELA 2 — CARTÃO E PARCELAS
+         ============================================================ -->
+    <div class="tela oculta" id="tela-cartoes">
+        <div class="colunas">
+
+            <div>
+                <section class="bloco">
+                    <div class="bloco-topo">
+                        <h2>Compras parceladas</h2>
+                        <span class="total-pe" id="resumoCompromisso"></span>
+                        <button class="mini" id="botaoNovaCategoria">Nova categoria</button>
+                    </div>
+
+                    <form class="form-compra" id="formCompra">
+                        <div class="campo campo-largo">
+                            <label for="compraDescricao">O que você comprou</label>
+                            <input id="compraDescricao" type="text" placeholder="Ex.: Geladeira" required>
+                        </div>
+                        <div class="campo">
+                            <label for="compraValor">Valor total</label>
+                            <input id="compraValor" inputmode="decimal" placeholder="0,00" required>
+                        </div>
+                        <div class="campo campo-curto">
+                            <label for="compraParcelas">Parcelas</label>
+                            <input id="compraParcelas" type="number" min="1" max="60" value="1">
+                        </div>
+                        <div class="campo">
+                            <label for="compraInicio">1ª parcela em</label>
+                            <input id="compraInicio" type="month">
+                        </div>
+                        <div class="campo">
+                            <label for="compraCategoria">Categoria</label>
+                            <select id="compraCategoria"></select>
+                        </div>
+                        <div class="campo">
+                            <label for="compraCartao">Cartão</label>
+                            <input id="compraCartao" type="text" list="listaCartoes" placeholder="Nubank">
+                            <datalist id="listaCartoes"></datalist>
+                        </div>
+                        <div class="campo campo-acao">
+                            <button class="add" type="submit">Adicionar</button>
+                        </div>
+                        <p class="dica" id="dicaParcela">A parcela é calculada sozinha e já desconta do resultado do mês.</p>
+                    </form>
+
+                    <div id="listaCompras"></div>
+                </section>
+            </div>
+
+            <div>
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Fatura por mês</h2></div>
+                    <div id="faturaPorMes"></div>
+                </section>
+
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Como isso entra na conta</h2></div>
+                    <div class="explicacao">
+                        As parcelas cadastradas aqui são descontadas sozinhas do resultado de cada
+                        mês, sem você digitar nada na planilha. Por isso não vale a pena criar uma
+                        linha de <b>fatura do cartão</b> na grade: o valor entraria duas vezes.
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================
+         TELA 3 — PLANEJAR
+         ============================================================ -->
+    <div class="tela oculta" id="tela-planejar">
+        <div class="colunas">
+
+            <div>
+                <section class="bloco">
+                    <div class="bloco-topo">
+                        <h2>Próximos 6 meses</h2>
+                        <span class="total-pe">com base na sua planilha</span>
+                    </div>
+                    <div id="tabelaProjecao"></div>
+                </section>
+            </div>
+
+            <div>
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>Simular uma compra</h2></div>
+
+                    <form class="form-compra" id="formSimulacao">
+                        <div class="campo campo-largo">
+                            <label for="simDescricao">O que você quer comprar</label>
+                            <input id="simDescricao" type="text" placeholder="Ex.: Celular novo">
+                        </div>
+                        <div class="campo">
+                            <label for="simValor">Valor total</label>
+                            <input id="simValor" inputmode="decimal" placeholder="0,00">
+                        </div>
+                        <div class="campo campo-curto">
+                            <label for="simParcelas">Parcelas</label>
+                            <input id="simParcelas" type="number" min="1" max="60" value="12">
+                        </div>
+                        <div class="campo campo-acao">
+                            <button class="add" type="submit">Simular</button>
+                        </div>
+                    </form>
+
+                    <div id="resultadoSimulacao"></div>
+                </section>
+
+                <section class="bloco">
+                    <div class="bloco-topo"><h2>De onde vêm as estimativas</h2></div>
+                    <div class="explicacao" id="baseEstimativa"></div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================
+         RODAPÉ
+         ============================================================ -->
+    <div class="rodape">
+        <span id="statusArmazenamento">Carregando…</span>
+        <button id="botaoExportarJson">Baixar backup (.json)</button>
+        <button id="botaoExportarCsv">Exportar planilha (.csv)</button>
+        <button id="botaoImportar">Restaurar backup</button>
+        <input type="file" id="arquivoBackup" accept="application/json,.json" hidden>
+    </div>
+
+</div>
+
+<!-- ================================================================
+     SCRIPTS — a ordem importa: cada arquivo usa o anterior
+     ================================================================ -->
+<script src="js/armazenamento.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/estado.js"></script>
+<script src="js/calculos.js"></script>
+<script src="js/tela-planilha.js"></script>
+<script src="js/tela-cartoes.js"></script>
+<script src="js/tela-planejar.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

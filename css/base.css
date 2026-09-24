@@ -1,0 +1,503 @@
+/* ==========================================================================
+   MEU DINHEIRO — base.css
+   Variáveis de cor, reset, tipografia e o esqueleto da página.
+   Os componentes (blocos, tabelas, formulários) ficam em componentes.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Paleta
+   Tudo é variável. Para mudar a cara do site inteiro, mexa só aqui.
+   -------------------------------------------------------------------------- */
+:root {
+    --papel:       #F7F5F0;
+    --superficie:  #FFFFFF;
+    --tinta:       #16233A;
+    --tinta-fraca: #5E6B80;
+    --linha:       #E2DFD6;
+    --linha-forte: #CFCABC;
+    --entrada:     #1C7A5E;
+    --saida:       #B4443A;
+    --meta:        #C98A2B;
+    --realce:      #EFEBE1;
+    --sombra:      rgba(22, 35, 58, .07);
+
+    --raio:        10px;
+    --raio-bloco:  14px;
+
+    color-scheme: light;
+}
+
+/* Tema escuro automático (segue o sistema), a não ser que o usuário force claro */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --papel:       #12161F;
+        --superficie:  #1A202C;
+        --tinta:       #E8EBF0;
+        --tinta-fraca: #98A2B3;
+        --linha:       #2A3242;
+        --linha-forte: #3B4557;
+        --entrada:     #4FC59B;
+        --saida:       #EB7A70;
+        --meta:        #E9B45A;
+        --realce:      #222A38;
+        --sombra:      rgba(0, 0, 0, .35);
+
+        color-scheme: dark;
+    }
+}
+
+/* Tema escuro forçado pelo botão */
+:root[data-theme="dark"] {
+    --papel:       #12161F;
+    --superficie:  #1A202C;
+    --tinta:       #E8EBF0;
+    --tinta-fraca: #98A2B3;
+    --linha:       #2A3242;
+    --linha-forte: #3B4557;
+    --entrada:     #4FC59B;
+    --saida:       #EB7A70;
+    --meta:        #E9B45A;
+    --realce:      #222A38;
+    --sombra:      rgba(0, 0, 0, .35);
+
+    color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset enxuto
+   -------------------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--papel);
+    color: var(--tinta);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+input,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--tinta);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   2b. Movimento — transições discretas em tudo que muda de estado
+   -------------------------------------------------------------------------- */
+a,
+button,
+input,
+select,
+.bloco,
+.aba,
+.linha-simples,
+.cat-linha,
+.compra,
+.mbar i,
+.barra i,
+.grade-cel,
+.grade-sinal,
+.grade-repetir,
+.apagar,
+.janela-opcao,
+.aba::after {
+    transition:
+        background-color .16s ease,
+        border-color .16s ease,
+        color .16s ease,
+        opacity .16s ease,
+        box-shadow .16s ease,
+        transform .12s ease,
+        width .35s ease,
+        height .35s ease;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+.aba:active {
+    transform: scale(.96);
+}
+
+.icone-btn:active {
+    transform: scale(.9) rotate(-8deg);
+}
+
+/* Pisca rápido para mostrar que um número acabou de mudar */
+@keyframes pisca-numero {
+    0%   { background-color: var(--meta); }
+    100% { background-color: transparent; }
+}
+
+.pisca {
+    animation: pisca-numero .7s ease-out;
+}
+
+@keyframes pisca-cor {
+    0%   { color: var(--meta); }
+    100% { color: inherit; }
+}
+
+.saldo.pisca {
+    animation: pisca-cor .7s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   3. Tipografia
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-family: "Bricolage Grotesque", "IBM Plex Sans", sans-serif;
+    font-weight: 700;
+    letter-spacing: -.02em;
+}
+
+/* Números alinhados em coluna — essencial numa planilha */
+.num {
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* --------------------------------------------------------------------------
+   4. Esqueleto da página
+   -------------------------------------------------------------------------- */
+.wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+}
+
+.colunas {
+    display: grid;
+    grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
+}
+
+/* Na tela da planilha a grade manda: a coluna da esquerda fica bem maior. */
+#tela-planilha .colunas {
+    grid-template-columns: minmax(0, 2.5fr) minmax(0, 1fr);
+}
+
+.tela.oculta {
+    display: none;
+}
+
+@keyframes tela-entra {
+    from { opacity: 0; transform: translateY(7px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.tela-entra {
+    animation: tela-entra .22s ease-out;
+}
+
+.oculta {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. Cabeçalho
+   -------------------------------------------------------------------------- */
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 22px 0 18px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -.03em;
+}
+
+.marca .moeda {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--tinta);
+    color: var(--papel);
+    font-size: 13px;
+}
+
+.mes {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    background: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+}
+
+.mes button {
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    color: var(--tinta-fraca);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.mes button:hover {
+    background: var(--realce);
+    color: var(--tinta);
+}
+
+.mes .rotulo {
+    min-width: 148px;
+    padding: 5px 6px;
+    color: var(--tinta);
+    font-weight: 600;
+    text-align: center;
+}
+
+.icone-btn {
+    padding: 8px 11px;
+    background: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    color: var(--tinta-fraca);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.icone-btn:hover {
+    background: var(--realce);
+    color: var(--tinta);
+}
+
+/* --------------------------------------------------------------------------
+   6. Resumo do mês (o "herói" da página)
+   -------------------------------------------------------------------------- */
+.fluxo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 30px;
+    align-items: end;
+    padding: 34px 0 30px;
+}
+
+.saldo-rotulo {
+    margin-bottom: 2px;
+    color: var(--tinta-fraca);
+    font-size: 13.5px;
+}
+
+.saldo {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+    font-size: clamp(38px, 7.5vw, 62px);
+    line-height: 1;
+    letter-spacing: -.04em;
+}
+
+.saldo.neg {
+    color: var(--saida);
+}
+
+.fluxo-dir {
+    display: flex;
+    gap: 26px;
+    text-align: right;
+}
+
+.fluxo-dir div {
+    text-align: right;
+}
+
+.fluxo-dir .v {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.fluxo-dir .k {
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+.v.ent {
+    color: var(--entrada);
+}
+
+.v.sai {
+    color: var(--saida);
+}
+
+/* Barra que divide o que entrou entre gasto e sobra */
+.barra-zona {
+    margin-top: 18px;
+}
+
+.barra {
+    display: flex;
+    height: 14px;
+    border: 1px solid var(--linha);
+    border-radius: 7px;
+    background: var(--realce);
+    overflow: hidden;
+}
+
+.barra i {
+    display: block;
+    height: 100%;
+    width: 0;
+}
+
+.barra .gasto {
+    background: var(--saida);
+}
+
+.barra .sobra {
+    background: var(--entrada);
+}
+
+.barra-leg {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Abas
+   -------------------------------------------------------------------------- */
+.abas {
+    display: flex;
+    gap: 4px;
+    margin: 30px 0 24px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.aba {
+    padding: 10px 14px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    background: none;
+    color: var(--tinta-fraca);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.aba:hover {
+    color: var(--tinta);
+}
+
+.aba[aria-selected="true"] {
+    border-bottom-color: var(--tinta);
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   8. Rodapé
+   -------------------------------------------------------------------------- */
+.rodape {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+.rodape button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--tinta-fraca);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.rodape button:hover {
+    color: var(--tinta);
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsivo — estrutura geral
+   (os ajustes de tabela ficam em componentes.css)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1460px) {
+    #tela-planilha .colunas {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .colunas {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .fluxo {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+    }
+
+    .fluxo-dir {
+        justify-content: flex-start;
+        text-align: left;
+    }
+}
+
+@media (max-width: 760px) {
+    .wrap {
+        padding: 0 14px 70px;
+    }
+
+    .abas {
+        overflow-x: auto;
+    }
+
+    .aba {
+        white-space: nowrap;
+    }
+}

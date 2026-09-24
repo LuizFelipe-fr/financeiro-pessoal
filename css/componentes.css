@@ -1,0 +1,1023 @@
+/* ==========================================================================
+   MEU DINHEIRO — componentes.css
+   Cada seção abaixo corresponde a um pedaço visível da interface.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Bloco (o cartão branco que envolve cada seção)
+   -------------------------------------------------------------------------- */
+.bloco {
+    background: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio-bloco);
+    box-shadow: 0 1px 2px var(--sombra);
+}
+
+.bloco + .bloco {
+    margin-top: 22px;
+}
+
+.bloco-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.bloco-topo h2 {
+    margin-right: auto;
+    font-size: 15.5px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Controles pequenos
+   -------------------------------------------------------------------------- */
+.mini {
+    padding: 5px 9px;
+    background: none;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.mini:hover {
+    background: var(--realce);
+    border-color: var(--linha-forte);
+    color: var(--tinta);
+}
+
+.add {
+    padding: 9px 15px;
+    background: var(--tinta);
+    border: 0;
+    border-radius: 9px;
+    color: var(--papel);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.add:hover {
+    opacity: .88;
+}
+
+
+.campo-num {
+    width: 86px;
+    padding: 3px 6px;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 7px;
+    font-size: 12.5px;
+    text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   3. Botão de apagar, rodapé de bloco
+   -------------------------------------------------------------------------- */
+.apagar {
+    padding: 4px;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--tinta-fraca);
+    font-size: 17px;
+    line-height: 1;
+    opacity: .35;
+    cursor: pointer;
+}
+
+tr:hover .apagar,
+.compra:hover .apagar,
+.nota-linha:hover .apagar {
+    opacity: 1;
+}
+
+.apagar:hover {
+    background: var(--realce);
+    color: var(--saida);
+}
+
+.rodape-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+}
+
+.total-pe {
+    margin-left: auto;
+    color: var(--tinta-fraca);
+    font-size: 13.5px;
+}
+
+.total-pe b {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. Estados vazios
+   -------------------------------------------------------------------------- */
+.vazio {
+    padding: 38px 16px;
+    color: var(--tinta-fraca);
+    font-size: 14px;
+    text-align: center;
+}
+
+.vazio b {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--tinta);
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Gráfico dos últimos meses
+   -------------------------------------------------------------------------- */
+.meses {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 130px;
+    padding: 18px 16px 14px;
+}
+
+.mcol {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    height: 100%;
+}
+
+.mbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 34px;
+    height: 100%;
+}
+
+.mbar i {
+    display: block;
+    min-height: 2px;
+    border-radius: 3px;
+    background: var(--entrada);
+}
+
+.mbar i.neg {
+    background: var(--saida);
+}
+
+.mrot {
+    color: var(--tinta-fraca);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.mcol.atual .mrot {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   6. Meta
+   -------------------------------------------------------------------------- */
+.meta-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    font-size: 13.5px;
+}
+
+.meta-box.sem-topo {
+    padding-top: 0;
+}
+
+.meta-box .rot {
+    margin-right: auto;
+    color: var(--tinta-fraca);
+}
+
+/* --------------------------------------------------------------------------
+   7. Formulários de compra e simulação
+   -------------------------------------------------------------------------- */
+.form-compra {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 16px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.campo {
+    display: flex;
+    flex: 1 1 130px;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.campo-largo {
+    flex: 2 1 200px;
+}
+
+.campo-curto {
+    flex: 0 1 92px;
+}
+
+.campo-acao {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+}
+
+.campo label {
+    color: var(--tinta-fraca);
+    font-size: 12px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 8px 9px;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: var(--linha-forte);
+    outline: none;
+}
+
+.dica {
+    flex: 1 1 100%;
+    margin: 0;
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+.dica b {
+    color: var(--tinta);
+}
+
+/* --------------------------------------------------------------------------
+   8. Lista de compras parceladas
+   -------------------------------------------------------------------------- */
+.compra {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 4px 14px;
+    align-items: center;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.compra:last-child {
+    border-bottom: 0;
+}
+
+.compra:hover {
+    background: var(--realce);
+}
+
+.compra .titulo {
+    font-weight: 500;
+}
+
+.compra .meta-info {
+    grid-column: 1 / 2;
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+.compra .parcela {
+    grid-row: 1 / 3;
+    grid-column: 2 / 3;
+    color: var(--saida);
+    font-size: 15px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.compra .parcela small {
+    display: block;
+    color: var(--tinta-fraca);
+    font-size: 11.5px;
+    font-weight: 400;
+}
+
+.compra .apagar {
+    grid-row: 1 / 3;
+    grid-column: 3 / 4;
+    opacity: .35;
+}
+
+.compra:hover .apagar {
+    opacity: 1;
+}
+
+.progresso-parcelas {
+    display: flex;
+    gap: 2px;
+    grid-column: 1 / 2;
+    margin-top: 6px;
+}
+
+.progresso-parcelas i {
+    flex: 1;
+    height: 4px;
+    max-width: 22px;
+    border-radius: 2px;
+    background: var(--linha);
+}
+
+.progresso-parcelas i.paga {
+    background: var(--tinta-fraca);
+}
+
+.progresso-parcelas i.atual {
+    background: var(--saida);
+}
+
+/* --------------------------------------------------------------------------
+   9. Tabelas simples (fatura por mês, projeção)
+   -------------------------------------------------------------------------- */
+.linha-simples {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--linha);
+    font-size: 14px;
+}
+
+.linha-simples:last-child {
+    border-bottom: 0;
+}
+
+.linha-simples.destaque {
+    background: var(--realce);
+}
+
+.linha-simples.destaque:last-child {
+    border-radius: 0 0 var(--raio-bloco) var(--raio-bloco);
+}
+
+.linha-simples .rotulo-linha {
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+.linha-simples .principal {
+    font-weight: 500;
+}
+
+.linha-simples .valor-dir {
+    font-weight: 600;
+    text-align: right;
+}
+
+.linha-simples .valor-dir small {
+    display: block;
+    color: var(--tinta-fraca);
+    font-size: 11.5px;
+    font-weight: 400;
+}
+
+.positivo {
+    color: var(--entrada);
+}
+
+.negativo {
+    color: var(--saida);
+}
+
+/* --------------------------------------------------------------------------
+   10. Resultado da simulação
+   -------------------------------------------------------------------------- */
+.veredito {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--linha);
+    font-size: 14px;
+}
+
+.veredito b {
+    display: block;
+    margin-bottom: 3px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 16px;
+}
+
+.veredito.cabe b {
+    color: var(--entrada);
+}
+
+.veredito.aperta b {
+    color: var(--meta);
+}
+
+.veredito.nao-cabe b {
+    color: var(--saida);
+}
+
+.explicacao {
+    padding: 14px 16px;
+    color: var(--tinta-fraca);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.explicacao b {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   11. Aviso flutuante
+   -------------------------------------------------------------------------- */
+.aviso {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    z-index: 50;
+    padding: 10px 16px;
+    background: var(--tinta);
+    border-radius: 10px;
+    box-shadow: 0 6px 24px var(--sombra);
+    color: var(--papel);
+    font-size: 13.5px;
+    animation: aviso-entra .22s cubic-bezier(.2, .8, .3, 1.1);
+}
+
+.aviso-sai {
+    animation: aviso-sai .18s ease-in forwards;
+}
+
+@keyframes aviso-entra {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes aviso-sai {
+    from { opacity: 1; transform: translate(-50%, 0); }
+    to   { opacity: 0; transform: translate(-50%, 10px); }
+}
+
+/* --------------------------------------------------------------------------
+   12. Planilha anual (grade estilo Excel)
+   -------------------------------------------------------------------------- */
+.titulo-planilha {
+    flex: 1 1 160px;
+    min-width: 0;
+    padding: 6px 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+    font-size: 15.5px;
+    margin-right: auto;
+}
+
+.titulo-planilha:hover {
+    border-color: var(--linha);
+}
+
+.titulo-planilha:focus {
+    background: var(--papel);
+    border-color: var(--linha-forte);
+    outline: none;
+}
+
+.grade-scroll {
+    overflow-x: auto;
+}
+
+table.grade {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    --largura-repetir: 30px;
+    --largura-rotulo: 168px;
+}
+
+.grade th,
+.grade td {
+    border-bottom: 1px solid var(--linha);
+    padding: 0;
+}
+
+.grade thead th {
+    padding: 9px 8px;
+    color: var(--tinta-fraca);
+    font-size: 11.5px;
+    font-weight: 500;
+    text-align: right;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--linha-forte);
+}
+
+.grade th.grade-rotulo {
+    padding: 9px 14px;
+    text-align: left;
+}
+
+.grade th.grade-mes,
+.grade th.col-ano {
+    padding-right: 6px;
+}
+
+.grade-cel {
+    text-align: right;
+    min-width: 70px;
+}
+
+.grade-cel input {
+    width: 100%;
+    padding: 9px 3px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0;
+    text-align: right;
+    font-size: 12.5px;
+}
+
+.grade-cel input:hover {
+    border-color: var(--linha);
+}
+
+.grade-cel input:focus {
+    background: var(--realce);
+    border-color: var(--linha-forte);
+    outline: none;
+}
+
+.celula-rotulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    padding: 5px 10px 5px 14px;
+}
+
+.grade-sinal {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--linha);
+    border-radius: 50%;
+    background: none;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.grade-sinal.ent {
+    color: var(--entrada);
+    border-color: var(--entrada);
+}
+
+.grade-sinal.sai {
+    color: var(--saida);
+    border-color: var(--saida);
+}
+
+.grade-nome {
+    flex: 1 1 auto;
+    min-width: 100px;
+    padding: 6px 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.grade-nome:hover {
+    border-color: var(--linha);
+}
+
+.grade-nome:focus {
+    background: var(--papel);
+    border-color: var(--linha-forte);
+    outline: none;
+}
+
+tr.grade-total td {
+    border-top: 2px solid var(--linha-forte);
+    border-bottom: 1px solid var(--linha-forte);
+    background: var(--realce);
+    font-weight: 600;
+}
+
+tr.grade-total .grade-rotulo {
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
+.total-cel {
+    padding: 8px;
+}
+
+tr.grade-saldo td {
+    background: var(--papel);
+}
+
+tr.grade-saldo .grade-rotulo {
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+}
+
+tr.grade-saldo input {
+    color: var(--tinta-fraca);
+    font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   13. Anotações (bloco de notas livre)
+   -------------------------------------------------------------------------- */
+.form-anotacao {
+    display: flex;
+    gap: 8px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.form-anotacao input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 9px;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+}
+
+.nota-linha {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--linha);
+    font-size: 13.5px;
+}
+
+.nota-linha:last-child {
+    border-bottom: 0;
+}
+
+.nota-texto {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   14. Planilha — barra do ano, destaques e coluna do total anual
+   -------------------------------------------------------------------------- */
+.barra-planilha {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.periodo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.periodo-rot {
+    color: var(--tinta-fraca);
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+}
+
+.barra-planilha .mini {
+    margin-left: auto;
+}
+
+/* a coluna do mês que está escolhido lá em cima */
+.grade th.mes-atual {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+.grade td.mes-atual {
+    background: var(--realce);
+}
+
+.grade tr.grade-total td.mes-atual {
+    background: var(--linha);
+}
+
+/* soma do ano, à direita de tudo */
+.grade th.col-ano,
+.grade td.col-ano {
+    width: 54px;
+    border-left: 1px solid var(--linha-forte);
+    color: var(--tinta-fraca);
+    text-align: right;
+    white-space: nowrap;
+    font-size: 12.5px;
+}
+
+.grade td.col-ano {
+    padding: 8px 6px;
+    font-weight: 600;
+}
+
+.grade-acao {
+    width: 20px;
+    text-align: center;
+}
+
+/* coluna do botãozinho de "repetir até dezembro", fora da área de nomes
+   e valores — fica presa à esquerda de tudo, como uma tira de ação */
+.grade th.grade-repetir-col,
+.grade td.grade-repetir-col {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: var(--largura-repetir);
+    padding: 0;
+    background: var(--papel);
+}
+
+.grade-repetir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 34px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--tinta-fraca);
+    font-size: 13px;
+    line-height: 1;
+    opacity: .35;
+    cursor: pointer;
+}
+
+tr:hover .grade-repetir,
+.grade-repetir:focus-visible {
+    opacity: 1;
+}
+
+.grade-repetir:hover {
+    color: var(--tinta);
+}
+
+.grade tr.grade-total .grade-repetir-col { background: var(--realce); }
+.grade tr.grade-saldo .grade-repetir-col { background: var(--papel); }
+
+/* --------------------------------------------------------------------------
+   15. Responsivo — no celular a grade rola de lado e o resto empilha
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+    table.grade {
+        table-layout: auto;
+        min-width: 860px;
+    }
+
+    .grade-cel {
+        min-width: 72px;
+    }
+
+    .grade th.grade-rotulo,
+    .grade td.grade-rotulo {
+        width: 160px;
+        min-width: 160px;
+        max-width: 160px;
+    }
+
+    .celula-rotulo {
+        padding-left: 10px;
+    }
+
+    .bloco-topo {
+        flex-wrap: wrap;
+    }
+
+    .grade-cel input {
+        padding: 11px 8px;
+    }
+
+    .grade-repetir,
+    .apagar {
+        opacity: 1;
+    }
+}
+
+/* A coluna do nome da linha fica presa ao rolar a grade de lado, logo
+   depois da tira do botão de repetir (essa sim gruda na borda esquerda) */
+.grade th.grade-rotulo,
+.grade td.grade-rotulo {
+    position: sticky;
+    left: var(--largura-repetir);
+    z-index: 2;
+    width: var(--largura-rotulo);
+    background: var(--superficie);
+    border-right: 1px solid var(--linha-forte);
+}
+
+.grade tr.grade-total .grade-rotulo {
+    background: var(--realce);
+}
+
+.grade tr.grade-saldo .grade-rotulo {
+    background: var(--papel);
+}
+
+/* --------------------------------------------------------------------------
+   16. Janela (a caixa que substitui prompt/confirm do navegador)
+   -------------------------------------------------------------------------- */
+.janela-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(9, 13, 21, .55);
+    backdrop-filter: blur(2px);
+    animation: janela-entra .12s ease-out;
+}
+
+.janela {
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+    animation: janela-sobe .16s cubic-bezier(.2, .8, .3, 1.1);
+}
+
+@keyframes janela-sobe {
+    from { opacity: 0; transform: translateY(10px) scale(.97); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes janela-entra {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.janela-corpo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px;
+}
+
+.janela-titulo {
+    font-size: 19px;
+}
+
+.janela-texto {
+    margin: -6px 0 0;
+    color: var(--tinta-fraca);
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.janela-texto b {
+    color: var(--tinta);
+    font-weight: 600;
+}
+
+.janela-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.janela-campo label {
+    color: var(--tinta-fraca);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
+
+.janela-campo input,
+.janela-campo select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+.janela-campo input:focus,
+.janela-campo select:focus {
+    border-color: var(--tinta-fraca);
+    outline: none;
+}
+
+.janela-dica {
+    color: var(--tinta-fraca);
+    font-size: 12.5px;
+    line-height: 1.45;
+}
+
+/* botões lado a lado: entra / sai */
+.janela-opcoes {
+    display: flex;
+    gap: 8px;
+}
+
+.janela-opcao {
+    flex: 1;
+    padding: 10px 8px;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.janela-opcao:hover {
+    border-color: var(--linha-forte);
+}
+
+.janela-opcao[aria-pressed="true"] {
+    background: var(--tinta);
+    border-color: var(--tinta);
+    color: var(--papel);
+}
+
+.janela-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.janela-btn {
+    padding: 10px 16px;
+    background: none;
+    border: 1px solid var(--linha);
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.janela-btn:hover {
+    background: var(--realce);
+}
+
+.janela-btn.principal {
+    background: var(--tinta);
+    border-color: var(--tinta);
+    color: var(--papel);
+}
+
+.janela-btn.principal:hover {
+    opacity: .88;
+}
+
+.janela-btn.principal.perigo {
+    background: var(--saida);
+    border-color: var(--saida);
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .janela-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .janela-btn {
+        width: 100%;
+        padding: 12px 16px;
+    }
+}
